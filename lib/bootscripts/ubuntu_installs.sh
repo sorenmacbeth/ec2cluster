@@ -82,8 +82,15 @@ apt-get -y install r-cran-rmpi r-cran-snow
 # # python numerical computing:
 # apt-get -y install python-setuptools python-docutils 
 # apt-get -y install python-support python-distutils-extra 
-# apt-get -y install python-dev python-numpy python-numpy-ext python-scipy cython 
+# apt-get -y install python-dev python-numpy python-numpy-ext python-scipy cython
 
+# Custom R packages 
+cat <<EOF >> /home/ec2cluster/install_custom_packages.R
+install.packages("DEoptim",repos="http://cran.stat.ucla.edu")
+install.packages("LSPM",repos="http://R-Forge.R-project.org")
+EOF
+
+R CMD BATCH /home/ec2cluster/install_custom_packages.R
 
 # install any user defined packages
 if [ "$user_packages" != "" ]; then
